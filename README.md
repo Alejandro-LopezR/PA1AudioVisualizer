@@ -23,6 +23,6 @@ The AudioVisualizer class provides us with the data needed to do the visualizati
 
 Please fill out the information below for each member of the team:
 
-### [FULL STUDENT A NAME] : [STUDENT A UPR EMAIL]
+### Alejandro E. López Rodríguez : alejandro.lopez24@upr.edu
 
-### [FULL STUDENT B NAME] : [STUDENT B UPR EMAIL]
+### Alexandra I. Fuentes Mercado : alexandra.fuentes2@upr.edu
