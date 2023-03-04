@@ -97,8 +97,29 @@ void ofApp::keyPressed(int key) {
         } else {
             pause = true;
         }
-    }
-}
+    case 'd':
+        soundID += 1;
+        if (soundID == 1){
+            sound.load("geesebeat.wav");             
+           sound.play();
+                }
+        else if (soundID == 2){
+            sound.load("pigeon-coo.wav");
+            sound.play();
+                }
+        else if (soundID == 3){
+            sound.load("rock-song.wav");
+            sound.play();
+                }
+        else if(soundID == 4){
+            soundID = 0;
+            sound.load("beat.wav");
+            sound.play();
+            }
+
+                }
+            }
+    
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key) {
