@@ -25,6 +25,9 @@ void ofApp::draw() {
     // Progress Bar
     ofSetColor(256);
     ofFill();
+    for (int i = 0; i < ofGetWindowWidth(); i++){
+    ofDrawRectangle(0,ofGetWindowHeight()-25,i*progress,ofGetWindowHeight());
+    }
 
     float pos = playing ? progress : lastPos;
     int percent = pos * 100;
