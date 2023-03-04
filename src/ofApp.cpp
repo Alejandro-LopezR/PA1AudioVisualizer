@@ -53,6 +53,7 @@ void ofApp::drawMode1(vector<float> amplitudes) {
     ofSetColor(256); // This resets the color of the "brush" to white
     ofDrawBitmapString("Rectangle Height Visualizer", 0, 15);
     ofSetColor(0, 0, ofRandom(0,256));
+    ofSetBackgroundColor(174,198,207);
     for (int i=0; i < 64; i++){
         ofDrawRectangle(i*ofGetWindowWidth()/64, ofGetHeight() - 100, ofGetWindowWidth()/64 , amplitudes[0+i]);
     }
@@ -62,6 +63,7 @@ void ofApp::drawMode2(vector<float> amplitudes) {
     ofNoFill();        // Only the outline of shapes will be drawn
     ofSetColor(256);   // This resets the color of the "brush" to white
     ofDrawBitmapString("Circle Radius Visualizer", 0, 15);
+    ofSetBackgroundColor(245,226,227);
     int bands = amplitudes.size();
     for (int i = 0; i < bands; i++) {
         ofSetColor((bands - i) * 32 % 256, 18, 144); // Color varies between frequencies
@@ -72,6 +74,7 @@ void ofApp::drawMode2(vector<float> amplitudes) {
 void ofApp::drawMode3(vector<float> amplitudes) {
     ofSetColor(256); // This resets the color of the "brush" to white
     ofDrawBitmapString("Rectangle Width Visualizer", 0, 15);
+    ofSetBackgroundColor(172,172,230);
     // YOUR CODE HERE
 }
 
