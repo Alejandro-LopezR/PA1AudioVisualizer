@@ -116,7 +116,16 @@ void ofApp::keyPressed(int key) {
             sound.load("beat.wav");
             sound.play();
             }
-
+    case '-':
+        if (sound.getVolume() > 0.1){
+        sound.setVolume(sound.getVolume() - 0.1);
+        break;
+    }
+    case '=':
+        if (sound.getVolume() < 1){
+        sound.setVolume(sound.getVolume() + 0.1);
+        break;
+        }
                 }
             }
     
