@@ -50,7 +50,9 @@ void ofApp::drawMode1(vector<float> amplitudes) {
     ofSetColor(256); // This resets the color of the "brush" to white
     ofDrawBitmapString("Rectangle Height Visualizer", 0, 15);
     ofSetColor(0, 0, ofRandom(0,256));
-    ofDrawRectRounded(2, ofGetHeight() - 100, 2, 50,amplitudes[0],10,10,10,10);
+    for (int i=0; i < 64; i++){
+        ofDrawRectangle(i*ofGetWindowWidth()/64, ofGetHeight() - 100, ofGetWindowWidth()/64 , amplitudes[0+i]);
+    }
 }
 void ofApp::drawMode2(vector<float> amplitudes) {
     ofSetLineWidth(5); // Sets the line width
