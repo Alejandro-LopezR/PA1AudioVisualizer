@@ -101,6 +101,7 @@ void ofApp::keyPressed(int key) {
         }
         break;
     case 'd':
+     if (playing){
         soundID += 1;
         if (soundID == 1){
             sound.load("geesebeat.wav");             
@@ -117,7 +118,9 @@ void ofApp::keyPressed(int key) {
             }
         sound.setLoop(true);
         sound.play();
+     }
         break;
+      
     case '-':
         if (sound.getVolume() > 0.1){
         sound.setVolume(sound.getVolume() - 0.1);
