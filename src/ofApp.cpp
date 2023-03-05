@@ -2,7 +2,7 @@
 //--------------------------------------------------------------
 void ofApp::setup() {
     sound.load("beat.wav");           // Loads a sound file (in bin/data/)
-    sound.setLoop(true);              // Makes the song loop indefinitely
+    sound.setLoop(false);              // Makes the song loop indefinitely
     sound.setVolume(1);               // Sets the song volume
     ofSetBackgroundColor(136,232, 156); // Sets the Background Color
 }
@@ -160,21 +160,29 @@ void ofApp::keyPressed(int key) {
             soundID = 0;
             sound.load("beat.wav");
             }
-        sound.setLoop(true);
+        sound.setLoop(repeat);
         sound.play();
      }
         break;
       
     case '-':
         if (sound.getVolume() > 0.1){
-        sound.setVolume(sound.getVolume() - 0.1);
+        sound.setVolume(sound.getVolume() - 0.1);}
+        sound.setLoop(repeat);
         break;
-    }
     case '=':
         if (sound.getVolume() < 1){
-        sound.setVolume(sound.getVolume() + 0.1);
+        sound.setVolume(sound.getVolume() + 0.1);}
+        sound.setLoop(repeat);
         break;
+    case 'r':
+        if (repeat){
+            sound.setLoop(false);
+        } else {
+            sound.setLoop(true);
         }
+        repeat = !repeat;
+        break;
                 }
             }
     

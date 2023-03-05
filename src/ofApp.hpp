@@ -10,7 +10,7 @@ class ofApp : public ofBaseApp {
   private:
     ofSoundPlayer sound;
     AudioVisualizer visualizer;
-
+    bool repeat = false;
     bool playing = false;
     bool pause = false;
     char mode = '1';
