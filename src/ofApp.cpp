@@ -70,18 +70,10 @@ void ofApp::drawMode2(vector<float> amplitudes) {
     }
 }
 
-
-// void ofApp::drawMode3(vector<float> amplitudes) {
-//     ofSetColor(256); // This resets the color of the "brush" to white
-//     ofDrawBitmapString("Rectangle Width Visualizer", 0, 15);
-//     ofSetBackgroundColor(155,17,30);
-//     // YOUR CODE HERE
-    
-// } 
-
 /// skull
+
 void ofApp::drawMode3(vector<float> amplitudes) {
-    // Set the background color to black
+    if(playing){
     ofSetColor(256); // This resets the color of the "brush" to white
     ofDrawBitmapString("Now presenting THE LIQUIDATOR SKULL covering Bad To The Bone", 0, 15);
     ofSetBackgroundColor(155,17,30);
@@ -118,6 +110,7 @@ void ofApp::drawMode3(vector<float> amplitudes) {
     }
     ofPopMatrix();
 }
+}
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
@@ -139,8 +132,10 @@ void ofApp::keyPressed(int key) {
         break;
     case '3':
         mode = '3';
+        if(playing && mode == '3'){
         sound.load("Bad To The Bone.wav");
         sound.play();
+        }
         break;
     case 'a':
         if(pause){
@@ -150,7 +145,7 @@ void ofApp::keyPressed(int key) {
         }
         break;
     case 'd':
-     if (playing){
+     if (playing && mode != '3'){
         soundID += 1;
         if (soundID == 1){
             sound.load("geesebeat.wav");             
