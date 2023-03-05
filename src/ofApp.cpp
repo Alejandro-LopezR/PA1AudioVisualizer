@@ -1,5 +1,4 @@
 #include "ofApp.hpp"
-
 //--------------------------------------------------------------
 void ofApp::setup() {
     sound.load("beat.wav");           // Loads a sound file (in bin/data/)
@@ -71,11 +70,53 @@ void ofApp::drawMode2(vector<float> amplitudes) {
     }
 }
 
+
+// void ofApp::drawMode3(vector<float> amplitudes) {
+//     ofSetColor(256); // This resets the color of the "brush" to white
+//     ofDrawBitmapString("Rectangle Width Visualizer", 0, 15);
+//     ofSetBackgroundColor(155,17,30);
+//     // YOUR CODE HERE
+    
+// } 
+
+/// skull
 void ofApp::drawMode3(vector<float> amplitudes) {
+    // Set the background color to black
     ofSetColor(256); // This resets the color of the "brush" to white
-    ofDrawBitmapString("Rectangle Width Visualizer", 0, 15);
-    ofSetBackgroundColor(172,172,230);
-    // YOUR CODE HERE
+    ofDrawBitmapString("Now presenting THE LIQUIDATOR SKULL covering Bad To The Bone", 0, 15);
+    ofSetBackgroundColor(155,17,30);
+
+    // Draw the skull
+    ofPushMatrix();
+    ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
+
+    // Draw the cranium (top part of skull)
+    ofSetColor(255, 255, 255);
+    ofDrawCircle(0, -100, 100);
+
+    // Draw the mandible (bottom part of skull)
+    ofSetColor(200, 200, 200);
+    for(int i = 5 ;i > 0; i--){
+    ofDrawRectangle(-50, -(amplitudes[0+i]), 100, 50);
+    }
+    // Draw the eye sockets
+    ofSetColor(0);
+    ofDrawCircle(-30, -60, 20);
+    ofDrawCircle(30, -60, 20);
+
+    // Draw the nasal cavity
+    ofDrawTriangle(-20, -30, 0, -60, 20, -30);
+
+    // Draw the teeth
+    ofSetColor(255, 255, 255);
+    for(int i = 5 ;i > 0; i--){
+    ofDrawRectangle(-40, -(amplitudes[0+i]), 10, 10);
+    ofDrawRectangle(-20, -(amplitudes[0+i]), 10, 10);
+    ofDrawRectangle(0, -(amplitudes[0+i]), 10, 10);
+    ofDrawRectangle(20, -(amplitudes[0+i]), 10, 10);
+    ofDrawRectangle(40, -(amplitudes[0+i]), 10, 10);
+    }
+    ofPopMatrix();
 }
 
 //--------------------------------------------------------------
@@ -98,6 +139,8 @@ void ofApp::keyPressed(int key) {
         break;
     case '3':
         mode = '3';
+        sound.load("Bad To The Bone.wav");
+        sound.play();
         break;
     case 'a':
         if(pause){

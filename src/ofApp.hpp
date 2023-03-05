@@ -1,7 +1,9 @@
 #pragma once
 
+
 #include "AudioVisualizer.hpp"
 #include "ofMain.h"
+
 
 class ofApp : public ofBaseApp {
 
