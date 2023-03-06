@@ -144,6 +144,7 @@ void ofApp::keyPressed(int key) {
             pause = true;
         }
         break;
+
     case 'd':
      if (playing && mode != '3'){
         soundID += 1;
@@ -164,15 +165,39 @@ void ofApp::keyPressed(int key) {
         sound.play();
      }
         break;
+
+    case 'b': 
+    if (playing && mode != '3'){
+        int randomint = 1+ (rand() % 4);
+        soundID = randomint; 
+        if (soundID == 1){
+            sound.load("geesebeat.wav");             
+                }
+        else if (soundID == 2){
+            sound.load("pigeon-coo.wav");
+                }
+        else if (soundID == 3){
+            sound.load("rock-song.wav");
+                }
+        else if(soundID == 4){
+            soundID = 0;
+            sound.load("beat.wav");
+            }
+        sound.setLoop(repeat);
+        sound.play();
+    }
+    break;
       
     case '-':
         if (sound.getVolume() > 0.1){
-        sound.setVolume(sound.getVolume() - 0.1);}
+        sound.setVolume(sound.getVolume() - 0.1);
+        }
         sound.setLoop(repeat);
         break;
     case '=':
         if (sound.getVolume() < 1){
-        sound.setVolume(sound.getVolume() + 0.1);}
+        sound.setVolume(sound.getVolume() + 0.1);
+        }
         sound.setLoop(repeat);
         break;
     case 'r':
@@ -199,6 +224,13 @@ void ofApp::mouseMoved(int x, int y) {
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button) {
+    cur_x = x;
+    cur_y = y;
+    if(x < ofGetWindowHeight()-25 && x > (ofGetWindowHeight()-25 + ofGetWindowWidth()) && y == ofGetWindowWidth() &&  y == (ofGetWindowWidth() - 25) ){  
+      double width = static_cast<double>(ofGetWindowWidth());
+      sound.setPosition( x/width);      
+}   
+
 }
 
 //--------------------------------------------------------------
