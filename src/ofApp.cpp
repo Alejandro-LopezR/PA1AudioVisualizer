@@ -226,19 +226,24 @@ void ofApp::mouseMoved(int x, int y) {
 void ofApp::mouseDragged(int x, int y, int button) {
     cur_x = x;
     cur_y = y;
-    if(x < ofGetWindowHeight()-25 && x > (ofGetWindowHeight()-25 + ofGetWindowWidth()) && y == ofGetWindowWidth() &&  y == (ofGetWindowWidth() - 25) ){  
-      double width = static_cast<double>(ofGetWindowWidth());
-      sound.setPosition( x/width);      
+    if(cur_y >= -25 && cur_y <= ofGetWidth()){
+        sound.setPosition(round(ofGetMouseX()*100/ofGetWidth())/100);
+        update();
 }   
 
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button) {
+    if(cur_y >= -25 && cur_y <= ofGetWidth()){
+        sound.setPaused(true);
+
+    } 
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button) {
+    sound.setPaused(false);
 }
 
 //--------------------------------------------------------------
