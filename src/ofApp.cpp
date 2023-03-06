@@ -187,6 +187,27 @@ void ofApp::keyPressed(int key) {
         sound.play();
     }
     break;
+
+    // case 'l':
+    //     while(playing && mode !=3){
+    //         mode = 'l';
+    //     if(soundID == 0 && sound.getPosition() < 1.0){
+    //         sound.load("geesebeat.wav");    
+    //         }
+    //     if(soundID == 1 && sound.getPosition() < 1.0){
+    //         sound.load("pigeon-coo.wav");
+    //     }
+    //     if(soundID == 2 && sound.getPosition() < 1.0){
+    //         sound.load("rock-song.wav");
+    //     }
+    //     if(soundID == 3 && sound.getPosition() < 1.0){
+    //         sound.load("beat.wav");
+    //         soundID = 0;
+    //     }
+    //         soundID += 1;
+    //         sound.play();
+    //     }
+    //     break;
       
     case '-':
         if (sound.getVolume() > 0.1){
@@ -226,7 +247,7 @@ void ofApp::mouseMoved(int x, int y) {
 void ofApp::mouseDragged(int x, int y, int button) {
     cur_x = x;
     cur_y = y;
-    if(cur_y >= -25 && cur_y <= ofGetWidth()){
+    if(cur_y >= ofGetHeight() - 25 && ofGetWidth() && playing){
         sound.setPosition(round(ofGetMouseX()*100/ofGetWidth())/100);
         update();
 }   
@@ -235,7 +256,7 @@ void ofApp::mouseDragged(int x, int y, int button) {
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button) {
-    if(cur_y >= -25 && cur_y <= ofGetWidth()){
+    if(cur_y >= ofGetHeight() - 25 && ofGetWidth() && playing){
         sound.setPaused(true);
 
     } 
