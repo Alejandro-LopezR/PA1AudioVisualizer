@@ -13,8 +13,11 @@ class ofApp : public ofBaseApp {
     bool repeat = false;
     bool playing = false;
     bool pause = false;
+    bool looping = false;
     char mode = '1';
-    int soundID = 0; 
+    int soundID = 0; //added sound ID to identify songs 
+    std::string Cur_song[4] = {"beat.wav","geesebeat.wav","pigeon-coo.wav","rock-song.wav"};
+    int randomint = 1+ (rand() % 4); // added code to get random int 
 
     int cur_x, cur_y = 0;
     float sound_length;

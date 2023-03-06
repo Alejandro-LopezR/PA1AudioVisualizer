@@ -14,7 +14,19 @@ void ofApp::update() {
     ofSoundUpdate();               // Updates all sound players
     if(!pause){visualizer.updateAmplitudes();} // Updates Amplitudes for visualizer
     progress = sound.getPosition();
-}
+    ///Looping Function for case 'l'
+    if(looping){
+            if(sound.getPosition() >= .99){
+              soundID++;
+              if(soundID == 4){
+                soundID = 0;
+            }
+              sound.load(Cur_song[soundID]);
+              sound.play();
+        }
+          
+    }
+    }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
@@ -27,7 +39,7 @@ void ofApp::draw() {
     for (int i = 0; i < ofGetWindowWidth(); i++){
     ofDrawRectangle(0,ofGetWindowHeight()-25,i*progress,ofGetWindowHeight());
     }
-
+    
     float pos = playing ? progress : lastPos;
     int percent = pos * 100;
     ofDrawBitmapString("Song Progress: " + ofToString(percent) + "%", 0, 30);
@@ -44,6 +56,7 @@ void ofApp::draw() {
     } else if (mode == '3') {
         drawMode3(amplitudes);
     }
+
 
     // ofDrawBitmapString("Current Mouse Position: " + ofToString(cur_x) + ", " + ofToString(cur_y), 0, 30);
 }
@@ -68,7 +81,9 @@ void ofApp::drawMode2(vector<float> amplitudes) {
         ofSetColor((bands - i) * 32 % 256, 18, 144); // Color varies between frequencies
         ofDrawCircle(ofGetWidth() / 2, ofGetHeight() / 2, amplitudes[0] / (i + 1));
     }
+
 }
+
 
 /// skull
 
@@ -88,7 +103,7 @@ void ofApp::drawMode3(vector<float> amplitudes) {
 
     // Draw the mandible (bottom part of skull)
     ofSetColor(200, 200, 200);
-    for(int i = 5 ;i > 0; i--){
+    for(int i = 1 ;i > 0; i--){
     ofDrawRectangle(-50, -(amplitudes[0+i]), 100, 50);
     }
     // Draw the eye sockets
@@ -101,7 +116,7 @@ void ofApp::drawMode3(vector<float> amplitudes) {
 
     // Draw the teeth
     ofSetColor(255, 255, 255);
-    for(int i = 5 ;i > 0; i--){
+    for(int i = 1 ;i > 0; i--){
     ofDrawRectangle(-40, -(amplitudes[0+i]), 10, 10);
     ofDrawRectangle(-20, -(amplitudes[0+i]), 10, 10);
     ofDrawRectangle(0, -(amplitudes[0+i]), 10, 10);
@@ -188,26 +203,18 @@ void ofApp::keyPressed(int key) {
     }
     break;
 
-    // case 'l':
-    //     while(playing && mode !=3){
-    //         mode = 'l';
-    //     if(soundID == 0 && sound.getPosition() < 1.0){
-    //         sound.load("geesebeat.wav");    
-    //         }
-    //     if(soundID == 1 && sound.getPosition() < 1.0){
-    //         sound.load("pigeon-coo.wav");
-    //     }
-    //     if(soundID == 2 && sound.getPosition() < 1.0){
-    //         sound.load("rock-song.wav");
-    //     }
-    //     if(soundID == 3 && sound.getPosition() < 1.0){
-    //         sound.load("beat.wav");
-    //         soundID = 0;
-    //     }
-    //         soundID += 1;
-    //         sound.play();
-    //     }
-    //     break;
+    case 'l':
+    ///looping thingy 
+    if(playing && mode != '3'){
+        if(looping){
+            looping = false;
+        } else {
+
+            looping = !looping;
+        }
+        }
+        
+    break;
       
     case '-':
         if (sound.getVolume() > 0.1){
