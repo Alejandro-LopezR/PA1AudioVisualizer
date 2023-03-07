@@ -342,10 +342,12 @@ void ofApp::mouseMoved(int x, int y) {
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button) {
+    //added progress drag functionality 
     cur_x = x;
     cur_y = y;
     if(cur_y >= ofGetHeight() - 25 && ofGetWidth() && playing){
-        sound.setPosition(round(ofGetMouseX()*100/ofGetWidth())/100);
+        sound.setPosition(round(ofGetMouseX()*100/ofGetWidth())/100); //sets postion of sound/progress bar on the position of cursor
+        sound.setPaused(true);
         update();
 }   
 
@@ -353,14 +355,17 @@ void ofApp::mouseDragged(int x, int y, int button) {
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button) {
+    //checks if mouse key is pressed inbetween the parameters of our progress bar rectangle 
     if(cur_y >= ofGetHeight() - 25 && ofGetWidth() && playing){
         sound.setPaused(true);
+
 
     } 
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button) {
+     //checks if mouse key is released 
     sound.setPaused(false);
 }
 
