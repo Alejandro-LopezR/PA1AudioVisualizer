@@ -56,6 +56,10 @@ void ofApp::draw() {
         }
     }
 
+    ofDrawBitmapString("Instructions: ", ofGetWidth()-320, 15);
+    ofDrawBitmapString("Press numbers 1 through 5 to activate \ndifferent visualizer modes ", ofGetWidth()-320, 30);
+    ofDrawBitmapString("Press 'l' to loop through all songs \nPress 'r' to repeat current songs \nPress 'b' to shuffle through songs ", ofGetWidth()-320, 60);
+    ofDrawBitmapString("Press 'a' to pause visualizer \nPress 'd' to switch to next song \nPress '-' to lower volume \nPress '=' to raise volume", ofGetWidth()-320, 105);
     // Mode Selection
     if (!playing) {
         ofDrawBitmapString("Press 'p' to play some music!", ofGetWidth() / 2 - 50, ofGetHeight() / 2);
