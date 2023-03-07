@@ -10,15 +10,15 @@ class ofApp : public ofBaseApp {
   private:
     ofSoundPlayer sound;
     AudioVisualizer visualizer;
-    bool repeat = false;
+    bool repeat = false; // Used in 'r' case
     bool playing = false;
-    bool pause = false;
-    bool looping = false;
+    bool pause = false; // Used in 'a' case
+    bool looping = false; // Used in 'l' case
     char mode = '1';
-    char curMode = 'x';
-    int soundID = 0; //added sound ID to identify songs 
-    std::string Cur_song[4] = {"beat.wav","geesebeat.wav","pigeon-coo.wav","rock-song.wav"};
-    int randomint = 1+ (rand() % 4); // added code to get random int 
+    char curMode = 'x'; // Used in 'l', 'r', and 'b' cases
+    int soundID = 0; // Added sound ID to identify songs 
+    std::string Cur_song[4] = {"beat.wav","geesebeat.wav","pigeon-coo.wav","rock-song.wav"}; // Used in 'l' case
+    int randomint = 1 + (rand() % 4); // Used in 'b' case, gives random int 
 
     int cur_x, cur_y = 0;
     float sound_length;
@@ -34,7 +34,7 @@ class ofApp : public ofBaseApp {
     void drawMode1(vector<float> amplitudes);
     void drawMode2(vector<float> amplitudes);
     void drawMode3(vector<float> amplitudes);
-    void drawMode4(vector<float> amplitudes);
+    void drawMode4(vector<float> amplitudes); // Added for drawMode4
 
     void keyPressed(int key);
     void keyReleased(int key);

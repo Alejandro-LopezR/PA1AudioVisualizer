@@ -2,7 +2,7 @@
 //--------------------------------------------------------------
 void ofApp::setup() {
     sound.load("beat.wav");           // Loads a sound file (in bin/data/)
-    sound.setLoop(false);              // Makes the song loop indefinitely
+    sound.setLoop(false);              // Makes the song loop indefinitely (incorrect); changed so that songs do NOT loop at start
     sound.setVolume(1);               // Sets the song volume
     ofSetBackgroundColor(136,232, 156); // Sets the Background Color
 }
@@ -14,7 +14,7 @@ void ofApp::update() {
     ofSoundUpdate();               // Updates all sound players
     if(!pause){visualizer.updateAmplitudes();} // Updates Amplitudes for visualizer
     progress = sound.getPosition();
-    ///Looping Function for case 'l'
+    // Looping function for case 'l'
     if(looping){
             if(sound.getPosition() >= .99){
               soundID++;
@@ -36,7 +36,7 @@ void ofApp::draw() {
     // Progress Bar
     ofSetColor(256);
     ofFill();
-    for (int i = 0; i < ofGetWindowWidth(); i++){
+    for (int i = 0; i < ofGetWindowWidth(); i++){ // Creates progress bar
     ofDrawRectangle(0,ofGetWindowHeight()-25,i*progress,ofGetWindowHeight());
     }
     
@@ -44,6 +44,7 @@ void ofApp::draw() {
     int percent = pos * 100;
     ofDrawBitmapString("Song Progress: " + ofToString(percent) + "%", 0, 30);
 
+    // Indicator that shows which mode user is in
     if(playing && mode != '3' && mode != '4'){
     if(curMode == 'l'){
         ofDrawBitmapString("Mode: Loop", 0, 45);
@@ -56,6 +57,7 @@ void ofApp::draw() {
         }
     }
 
+    // Instructions for user to follow
     if(playing){
     ofDrawBitmapString("Instructions: ", ofGetWidth()-320, 15);
     ofDrawBitmapString("Press numbers 1 through 5 to activate \ndifferent visualizer modes ", ofGetWidth()-320, 30);
@@ -74,7 +76,7 @@ void ofApp::draw() {
         drawMode2(amplitudes);
     } else if (mode == '3') {
         drawMode3(amplitudes);
-    } else if (mode == '4') {
+    } else if (mode == '4') { // Added for drawMode4 to use amplitudes
         drawMode4(amplitudes);
     }
 
@@ -85,10 +87,10 @@ void ofApp::drawMode1(vector<float> amplitudes) {
     ofFill();        // Drawn Shapes will be filled in with color
     ofSetColor(256); // This resets the color of the "brush" to white
     ofDrawBitmapString("Rectangle Height Visualizer", 0, 15);
-    ofSetColor(0, 0, ofRandom(0,256));
+    ofSetColor(0, 0, ofRandom(0,256)); //ofRandom gives random shade of blue
     ofSetBackgroundColor(174,198,207);
-    for (int i=0; i < 64; i++){
-        ofDrawRectangle(i*ofGetWindowWidth()/64, ofGetHeight() - 100, ofGetWindowWidth()/64 , amplitudes[0+i]);
+    for (int i=0; i < 64; i++){ // Used to divide amplitudes with all rectangles; used in all other drawModes
+        ofDrawRectangle(i*ofGetWindowWidth()/64, ofGetHeight() - 100, ofGetWindowWidth()/64 , amplitudes[0+i]); // amplitudes[0+i] makes rectangles move with sound, used in other drawModes
     }
 }
 void ofApp::drawMode2(vector<float> amplitudes) {
@@ -105,58 +107,55 @@ void ofApp::drawMode2(vector<float> amplitudes) {
 
 }
 
-
-// skull
-
+// Custom Mode 3; Singing Skull visualizer
 void ofApp::drawMode3(vector<float> amplitudes) {
     ofSetColor(256); // This resets the color of the "brush" to white
     ofDrawBitmapString("Now presenting THE LIQUIDATOR SKULL covering Bad To The Bone", 0, 15);
     ofSetBackgroundColor(155,17,30);
 
     if(playing){
-    // Draw the skull
-    ofPushMatrix();
-    ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
+    // Draws the skull
+    ofPushMatrix(); // Used alongside ofTranslate and ofPopMatrix to facilitate drawing of complex figures, used in other drawModes, allows changing of coordinates
+    ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2); // Changes origin coordinates of screen to middle to facilitate drawing in terms of center of screen
 
-    // Draw the cranium (top part of skull)
+    // Draws the cranium (top part of skull)
     ofSetColor(255, 255, 255);
     ofDrawCircle(0, -100, 100);
 
-    // Draw the mandible (bottom part of skull)
+    // Draws the mandible (bottom part of skull)
     ofSetColor(200, 200, 200);
-    for(int i = 1 ;i > 0; i--){
+    for(int i = 1 ;i > 0; i--){ // See drawMode1
     ofDrawRectangle(-50, -(amplitudes[0+i]), 100, 50);
     }
-    // Draw the eye sockets
+    // Draws the eye sockets
     ofSetColor(0);
     ofDrawCircle(-30, -60, 20);
     ofDrawCircle(30, -60, 20);
 
-    // Draw the nasal cavity
+    // Draws the nasal cavity
     ofDrawTriangle(-20, -30, 0, -60, 20, -30);
 
-    // Draw the teeth
+    // Draws the teeth
     ofSetColor(255, 255, 255);
-    for(int i = 1 ;i > 0; i--){
+    for(int i = 1 ;i > 0; i--){ // See drawMode1
     ofDrawRectangle(-40, -(amplitudes[0+i]), 10, 10);
     ofDrawRectangle(-20, -(amplitudes[0+i]), 10, 10);
     ofDrawRectangle(0, -(amplitudes[0+i]), 10, 10);
     ofDrawRectangle(20, -(amplitudes[0+i]), 10, 10);
     ofDrawRectangle(40, -(amplitudes[0+i]), 10, 10);
     }
-    ofPopMatrix();
+    ofPopMatrix(); // Used alongside ofPushMatrix to facilitate drawing, resets to original coordinate system
 }
 }
 
-// DSOTM
-
+// Custom Mode 4; DSOTM Visualizer
 void ofApp::drawMode4(vector<float> amplitudes) {
     ofSetColor(256);
     ofDrawBitmapString("Any Colour You Like as recorded in Pink Floyd's Dark Side Of The Moon", 0, 15);
     ofSetBackgroundColor(0,0,0);
     if (playing) {
-    ofPushMatrix();
-    ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
+    ofPushMatrix(); // See drawMode3
+    ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2); // See drawMode3
     
     //White
     ofFill();
@@ -167,30 +166,30 @@ void ofApp::drawMode4(vector<float> amplitudes) {
 
     
     ofRotateDeg(10);
-    for(int i = 1 ;i > 0; i--){
+    for(int i = 1 ;i > 0; i--){ // See drawMode1
     //Red
     ofSetColor(255, 0, 0);
-    ofDrawRectangle(30.5, -50, -(amplitudes[0+i]) + ofGetWidth()/4, 7.5);
+    ofDrawRectangle(30.5, -50, -(amplitudes[0+i]) + ofGetWidth()/4, 7.5); // See drawMode1
 
     //Orange
     ofSetColor(255, 165, 0);
-    ofDrawRectangle(35.7, -42.5, -(amplitudes[0+i])  + ofGetWidth()/4, 7.5);
+    ofDrawRectangle(35.7, -42.5, -(amplitudes[0+i])  + ofGetWidth()/4, 7.5); // See drawMode1
 
     //Yellow
     ofSetColor(256, 256, 0);
-    ofDrawRectangle(43, -35, -(amplitudes[0+i]) + ofGetWidth()/4, 7.5);
+    ofDrawRectangle(43, -35, -(amplitudes[0+i]) + ofGetWidth()/4, 7.5); // See drawMode1
 
     //Green
     ofSetColor(0, 256, 0);
-    ofDrawRectangle(50, -27.5, -(amplitudes[0+i]) + ofGetWidth()/4, 7.5);
+    ofDrawRectangle(50, -27.5, -(amplitudes[0+i]) + ofGetWidth()/4, 7.5); // See drawMode1
 
     //Blue
     ofSetColor(0, 150, 255);
-    ofDrawRectangle(56, -20, -(amplitudes[0+i]) + ofGetWidth()/4, 7.5);
+    ofDrawRectangle(56, -20, -(amplitudes[0+i]) + ofGetWidth()/4, 7.5); // See drawMode1
 
     //Purple
     ofSetColor(221,160,221);
-    ofDrawRectangle(64, -12.5, -(amplitudes[0+i]) + ofGetWidth()/4, 7.5);
+    ofDrawRectangle(64, -12.5, -(amplitudes[0+i]) + ofGetWidth()/4, 7.5); // See drawMode1
     }
     ofRotateDeg(-10);
 
@@ -200,7 +199,7 @@ void ofApp::drawMode4(vector<float> amplitudes) {
     ofSetColor(256, 256, 256);
     ofDrawTriangle(-125, 100, 0, -100, 125, 100);
 
-    ofPopMatrix();
+    ofPopMatrix(); // See drawMode3
     }
 }
 
@@ -225,20 +224,20 @@ void ofApp::keyPressed(int key) {
         break;
     case '3':
         mode = '3';
-        if(playing && mode == '3'){
+        if(playing && mode == '3'){ // Makes loaded song play exclusively for drawMode3
         sound.load("Bad To The Bone.wav");
         sound.play();
         }
         break;
     case '4':
         mode = '4';
-        if (playing && mode == '4'){
+        if (playing && mode == '4'){ // Makes loaded song play exclusively for drawMode4
         sound.load("Any Colour You Like.wav");
         sound.play();
         }
         break;
 
-    case 'a':
+    case 'a': // Pause visualizer function
         if(pause){
             pause = false;
         } else {
@@ -246,7 +245,7 @@ void ofApp::keyPressed(int key) {
         }
         break;
 
-    case 'd':
+    case 'd': // Play next song function
      if (playing && mode != '3' && mode != '4'){
         soundID += 1;
         if (soundID == 1){
@@ -267,10 +266,10 @@ void ofApp::keyPressed(int key) {
      }
         break;
 
-    case 'b': 
-    if (playing && mode != '3' && mode != '4' && curMode != 'l' && curMode != 'r'){
+    case 'b': // Shuffle mode function, plays random song
+    if (playing && mode != '3' && mode != '4' && curMode != 'l' && curMode != 'r'){ // Makes it so that no more than one mode can be selected at a time
         curMode = 'b';
-        int randomint = 1+ (rand() % 4);
+        int randomint = 1 + (rand() % 4);
         soundID = randomint; 
         if (soundID == 1){
             sound.load("geesebeat.wav");             
@@ -290,36 +289,37 @@ void ofApp::keyPressed(int key) {
     }
     break;
 
-    case 'l':
-    if(playing && mode != '3' && mode != '4' && curMode != 'r'){
+    case 'l': // Loop mode function, once song ends the next one is played
+    if(playing && mode != '3' && mode != '4' && curMode != 'r'){ // Makes it so that no more than one mode can be selected at a time
     curMode = 'l';
         if(looping){
             looping = false;
-            curMode = 'x';
+            curMode = 'x'; // Resets curMode variable, used in main ifs in 'l', 'r', and 'b' modes
         } else {
             looping = !looping;
         }
         }
     break;
       
-    case '-':
+    case '-': // Lowers volume
         if (sound.getVolume() > 0.1){
         sound.setVolume(sound.getVolume() - 0.1);
         }
         sound.setLoop(repeat);
         break;
-    case '=':
+    case '=': // Increases volume
         if (sound.getVolume() < 1){
         sound.setVolume(sound.getVolume() + 0.1);
         }
         sound.setLoop(repeat);
         break;
-    case 'r':
-        if(playing && mode != '3' && mode != '4' && curMode != 'l'){
+    
+    case 'r': // Repeat mode function, once song ends it is played again
+        if(playing && mode != '3' && mode != '4' && curMode != 'l'){ // Makes it so that no more than one mode can be selected at a time
         curMode = 'r';
         if (repeat){
             sound.setLoop(false);
-            curMode = 'x';
+            curMode = 'x'; // Resets curMode variable, used in main ifs in 'l', 'r', and 'b' modes
         } else {
             sound.setLoop(true);
         }
