@@ -56,10 +56,13 @@ void ofApp::draw() {
         }
     }
 
+    if(playing){
     ofDrawBitmapString("Instructions: ", ofGetWidth()-320, 15);
     ofDrawBitmapString("Press numbers 1 through 5 to activate \ndifferent visualizer modes ", ofGetWidth()-320, 30);
-    ofDrawBitmapString("Press 'l' to loop through all songs \nPress 'r' to repeat current songs \nPress 'b' to shuffle through songs ", ofGetWidth()-320, 60);
+    ofDrawBitmapString("Press 'l' to loop through all songs \nPress 'r' to repeat current song \nPress 'b' to shuffle through songs ", ofGetWidth()-320, 60);
     ofDrawBitmapString("Press 'a' to pause visualizer \nPress 'd' to switch to next song \nPress '-' to lower volume \nPress '=' to raise volume", ofGetWidth()-320, 105);
+    }
+
     // Mode Selection
     if (!playing) {
         ofDrawBitmapString("Press 'p' to play some music!", ofGetWidth() / 2 - 50, ofGetHeight() / 2);
@@ -265,8 +268,8 @@ void ofApp::keyPressed(int key) {
         break;
 
     case 'b': 
-    curMode = 'b';
-    if (playing && mode != '3' && mode != '4'){
+    if (playing && mode != '3' && mode != '4' && curMode != 'l' && curMode != 'r'){
+        curMode = 'b';
         int randomint = 1+ (rand() % 4);
         soundID = randomint; 
         if (soundID == 1){
@@ -288,17 +291,15 @@ void ofApp::keyPressed(int key) {
     break;
 
     case 'l':
+    if(playing && mode != '3' && mode != '4' && curMode != 'r'){
     curMode = 'l';
-    //looping thingy 
-    if(playing && mode != '3' && mode != '4'){
         if(looping){
             looping = false;
+            curMode = 'x';
         } else {
-
             looping = !looping;
         }
         }
-        
     break;
       
     case '-':
@@ -314,13 +315,16 @@ void ofApp::keyPressed(int key) {
         sound.setLoop(repeat);
         break;
     case 'r':
+        if(playing && mode != '3' && mode != '4' && curMode != 'l'){
         curMode = 'r';
         if (repeat){
             sound.setLoop(false);
+            curMode = 'x';
         } else {
             sound.setLoop(true);
         }
         repeat = !repeat;
+        }
         break;
                 }
             }
