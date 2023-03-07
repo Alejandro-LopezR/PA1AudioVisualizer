@@ -15,6 +15,7 @@ class ofApp : public ofBaseApp {
     bool pause = false;
     bool looping = false;
     char mode = '1';
+    char curMode = 'x';
     int soundID = 0; //added sound ID to identify songs 
     std::string Cur_song[4] = {"beat.wav","geesebeat.wav","pigeon-coo.wav","rock-song.wav"};
     int randomint = 1+ (rand() % 4); // added code to get random int 

@@ -44,6 +44,18 @@ void ofApp::draw() {
     int percent = pos * 100;
     ofDrawBitmapString("Song Progress: " + ofToString(percent) + "%", 0, 30);
 
+    if(playing && mode != '3' && mode != '4'){
+    if(curMode == 'l'){
+        ofDrawBitmapString("Mode: Loop", 0, 45);
+    }
+    if(curMode == 'r'){
+        ofDrawBitmapString("Mode: Repeat", 0, 45);
+    }
+    if(curMode == 'b'){
+        ofDrawBitmapString("Mode: Shuffle", 0, 45);
+        }
+    }
+
     // Mode Selection
     if (!playing) {
         ofDrawBitmapString("Press 'p' to play some music!", ofGetWidth() / 2 - 50, ofGetHeight() / 2);
@@ -249,6 +261,7 @@ void ofApp::keyPressed(int key) {
         break;
 
     case 'b': 
+    curMode = 'b';
     if (playing && mode != '3' && mode != '4'){
         int randomint = 1+ (rand() % 4);
         soundID = randomint; 
@@ -271,7 +284,8 @@ void ofApp::keyPressed(int key) {
     break;
 
     case 'l':
-    ///looping thingy 
+    curMode = 'l';
+    //looping thingy 
     if(playing && mode != '3' && mode != '4'){
         if(looping){
             looping = false;
@@ -296,6 +310,7 @@ void ofApp::keyPressed(int key) {
         sound.setLoop(repeat);
         break;
     case 'r':
+        curMode = 'r';
         if (repeat){
             sound.setLoop(false);
         } else {
