@@ -11,6 +11,7 @@ class ofApp : public ofBaseApp {
     ofSoundPlayer sound;
     AudioVisualizer visualizer;
     bool repeat = false; // Used in 'r' case
+    bool drag = false; // Used for dragging function
     bool playing = false;
     bool pause = false; // Used in 'a' case
     bool looping = false; // Used in 'l' case

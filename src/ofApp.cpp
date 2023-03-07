@@ -358,6 +358,7 @@ void ofApp::mousePressed(int x, int y, int button) {
     //checks if mouse key is pressed inbetween the parameters of our progress bar rectangle 
     if(cur_y >= ofGetHeight() - 25 && ofGetWidth() && playing){
         sound.setPaused(true);
+        drag = true;
 
 
     } 
@@ -366,7 +367,10 @@ void ofApp::mousePressed(int x, int y, int button) {
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button) {
      //checks if mouse key is released 
+    if(playing && drag){
     sound.setPaused(false);
+    drag = false;
+    }
 }
 
 //--------------------------------------------------------------
